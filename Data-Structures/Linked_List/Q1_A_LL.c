@@ -91,6 +91,38 @@ int main()
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
+	ListNode *cur;
+	if (ll == NULL) {//ll 유무 확인
+		printf("The value %d was added at index %d\n", item, -1);
+		return -1;
+	}
+	cur = ll->head;
+	// Case#1: ll이 비어있다면 그대로 0번 index에 insert
+	if (cur == NULL) {
+		insertNode(ll, 0, item);
+		printf("The value %d was added at index %d\n", item, 0);
+		return 0;
+	}
+	// 아니라면 idx = 0번부터 시작해서 ll 훌트면서 같은값 유무, 들어갈 자리(idx) 찾기
+	int idx = 0;
+	while (cur != NULL)
+	{	
+		if (item == cur->item) { // Case#2: 같은 값 존재 ==> 현재 보는 놈이 같은 놈 이면 -1 return
+			printf("The value %d was added at index %d\n", item, -1);
+			return -1; 
+		}
+		else if (item < cur->item) { // Case#3 현재 보는 놈보다 집어넣으려는게 작으면 insert
+			insertNode(ll,idx,item);
+			printf("The value %d was added at index %d\n", item, idx);
+			return 0; 
+		}
+		idx+=1;
+		cur = cur->next;
+	}
+	insertNode(ll,idx,item);
+	printf("The value %d was added at index %d\n", item, idx);
+	return 0;// Case#4: 가장 큰값임 -> insert
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

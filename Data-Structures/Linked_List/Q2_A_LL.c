@@ -84,8 +84,8 @@ int main()
 			printList(&ll1);
 			printf("The resulting linked list 2: ");
 			printList(&ll2);
-			removeAllItems(&ll1);
-			removeAllItems(&ll2);
+			// removeAllItems(&ll1);
+			// removeAllItems(&ll2);
 			break;
 		case 0:
 			removeAllItems(&ll1);
@@ -104,6 +104,26 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	ListNode *cur1;
+	ListNode *cur2;
+	if (ll1 == NULL || ll2 == NULL)
+		return;
+	
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+
+	if (cur1 == NULL || cur2 == NULL) { // list1 또는 list2가 비어있으면 그대로 끝
+		return;
+	}
+	int idx = 0; // 2번째 자리부터 넣어줘야 하기 때문에 ll1의 idx 시작점 = 1
+
+	while (findNode(ll1,idx) && findNode(ll2,0)) // loop 종료 조건 : 매칭할 ll1 index가 없을때 또는 ll2가 빌 때
+	{
+		cur2 = ll2->head;
+		insertNode(ll1,idx+1,cur2->item);
+		removeNode(ll2,0);
+		idx+=2; // idx값 2개씩 이동
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
