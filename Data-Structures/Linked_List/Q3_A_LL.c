@@ -87,32 +87,28 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
-	ListNode *cur;
-	ListNode *prev = NULL;
-	if (ll == NULL)
-		return;
-	cur = ll->head;
+	ListNode *cur = ll->head;
 
-	if (cur == NULL)
-		printf("Empty");
+	if (ll == NULL) return;
+	if (cur == NULL) printf("Empty");
+
+	int odds[100]; // list for odds
+	int count = 0;
+	int idx = 0;
 
 	while (cur != NULL) {
-		if (cur->item%2 != 0) {
-			insertNode(ll,ll->size,cur->item);
-
-			if (prev == NULL) ll->head = cur->next;
-			else prev->next = cur->next;
-			
-			ListNode *next = cur->next;
-			free(cur);
-			cur = next;
-			ll->size--;
+		ListNode *next = cur->next;        // save next before removal
+		if (cur->item % 2 != 0) {
+			odds[count++] = cur->item;		// count++ does 2 things at once.
+			removeNode(ll, idx);           // removes current node safely
 		} else {
-			prev = cur;
-			cur = cur->next;
+			idx++;                         // only increment index if not removed
 		}
+		cur = next;                        // move safely to next
 	}
-
+	for (int i = 0; i < count; i++) {
+    	insertNode(ll, ll->size, odds[i]);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
