@@ -115,13 +115,28 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
-{
+{	
+	if (ll == NULL || ll->head == NULL) return;
+
+	ListNode *ptr = ll->head;
+
+	while (ptr) {
+		enqueue(q,ptr->item);
+		ptr = ptr->next;
+	}
 	/* add your code here */
 }
 
 void removeOddValues(Queue *q)
-{
-	/* add your code here */
+{	
+	if (q = NULL || isEmptyQueue(q)) return;
+
+	int size = (q->ll).size;
+
+	for (int i = 0; i < size; i++) {
+		int item = dequeue(q);
+		if (item%2 == 0) enqueue(q, item);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

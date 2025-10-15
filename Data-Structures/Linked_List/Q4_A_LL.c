@@ -86,26 +86,47 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
+	if (ll == NULL || ll->head == NULL) {
+		printf("Empty");
+		return;
+	}
+
+	int *evens = malloc(sizeof(int)*ll->size);
+	int count = 0, idx = 0;
 	ListNode *cur = ll->head;
-
-	if (ll == NULL) return;
-	if (cur == NULL) printf("Empty");
-
-	int evens[100];
-	int count = 0;
-	int idx = 0;
 
 	while (cur != NULL) {
 		ListNode *next = cur->next;
 		if (cur->item%2 == 0) {
 			evens[count++] = cur->item;
 			removeNode(ll,idx);
-		} else idx++;
+		} else idx ++;
 		cur = next;
 	}
-	for (int i = 0; i < count; i++) {
+	for (int i =0; i < count; i++)
 		insertNode(ll,ll->size,evens[i]);
-	}
+
+	free(evens);
+	// ListNode *cur = ll->head;
+
+	// if (ll == NULL) return;
+	// if (cur == NULL) printf("Empty");
+
+	// int evens[100];
+	// int count = 0;
+	// int idx = 0;
+
+	// while (cur != NULL) {
+	// 	ListNode *next = cur->next;
+	// 	if (cur->item%2 == 0) {
+	// 		evens[count++] = cur->item;
+	// 		removeNode(ll,idx);
+	// 	} else idx++;
+	// 	cur = next;
+	// }
+	// for (int i = 0; i < count; i++) {
+	// 	insertNode(ll,ll->size,evens[i]);
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

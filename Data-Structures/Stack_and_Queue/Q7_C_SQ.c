@@ -75,7 +75,16 @@ int main()
 	while (c != 0)
 	{
 		printf("Please input your choice(1/2/0): ");
-		scanf("%d", &c);
+		if (scanf("%d", &c) != 1) {
+			printf("Invalid input. Please enter a number.\n");
+
+			// Clear the invalid input from buffer
+			int ch;
+			while ((ch = getchar()) != '\n' && ch != EOF);
+
+			continue;  // re-prompt the user
+		}
+		
 
 		switch (c)
 		{
@@ -85,9 +94,9 @@ int main()
 			break;
         case 2:
             if(balanced(str))
-                printf("not balanced!\n");
+				printf("balanced!\n"); 
             else
-                printf("balanced!\n");
+				printf("not balanced!\n");
 			break;
 		case 0:
 			break;
@@ -103,8 +112,58 @@ int main()
 
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
-{
-/* add your code here */
+{	
+	if (expression == NULL || expression[0] == '\0') return 0;
+	Stack s = { .ll = {.head = NULL, .size = 0}};
+	
+	for (int i = 0; expression[i] != '\0'; i++) {
+		char item = expression[i];
+
+		if (item == '(' || item == '{' || item == '[') 
+			push(&s,item);
+
+		else if (item == ')' || item == '}' || item == ']') {
+			if (isEmptyStack(&s)) return 0 ;
+			
+			char top = peek(&s);
+			if ((item == ')' && top != '(') ||
+				(item == ']' && top != '[') ||
+				(item == '}' && top != '{'))
+				return 0;
+			pop(&s);
+		} else  {
+			printf("Invalid Input!\n");
+			return 0;
+		}
+	}
+	return isEmptyStack(&s);
+
+
+
+	// if (expression == NULL || expression[0] == '\0') return 0;
+	// Stack temp = { .ll = { .head = NULL, .size = 0}};
+
+	// for (int i = 0; expression[i] != '\0'; i++) {
+	// 	char item = expression[i];
+
+	// 	if (item == '{' || item == '(' || item == '[')
+	// 		push(&temp,item);
+	// 	else if (item == '}' || item == ')' || item == ']'){
+	// 		if (isEmptyStack(&temp)) return 0;
+
+	// 		char top = peek(&temp);
+	// 		if ((item == '}' && top != '{') ||
+    //             (item == ')' && top != '(') ||
+    //             (item == ']' && top != '['))
+    //             return 0;
+	// 	   	pop(&temp);
+	// 	} else  {
+	// 		printf("invalid input!\n");
+	// 		return 0;
+	// 	}
+	// }	
+	// return isEmptyStack(&temp);
+
 }
 
 ////////////////////////////////////////////////////////////

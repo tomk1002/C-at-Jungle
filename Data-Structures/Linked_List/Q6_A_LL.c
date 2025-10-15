@@ -86,9 +86,56 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
-int moveMaxToFront(ListNode **ptrHead)
-{
+int moveMaxToFront(ListNode **ptrHead) //
+{	// **ptrHead is the struct itself..? not sure how to interpret **
     /* add your code here */
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL) return -1;
+
+	ListNode *cur = *ptrHead;
+	ListNode *max = cur;
+	ListNode *prev = NULL;
+	ListNode *premax = NULL;
+
+	while (cur != NULL) {
+		if (cur->item > max->item) {
+			max = cur;
+			premax = prev;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+
+	if (max == *ptrHead) return 0;
+
+	premax->next = max->next;
+	max->next = *ptrHead;
+	*ptrHead = max;
+	return 0;
+
+
+
+	// if (*ptrHead == NULL || (*ptrHead)->next == NULL) return -1; //If no list, return;
+
+	// ListNode *cur = *ptrHead; //cur as first node;
+	// ListNode *prev = NULL; // necessary for unlinking max when moving
+	// ListNode *maxNode = *ptrHead; 
+	// ListNode *preMax = NULL; // necessary for unlinking max when moving
+
+	// while (cur!=NULL) { // while node is valid
+	// 	if (cur->item > maxNode->item) { // check max
+	// 		maxNode = cur; // update max val
+	// 		preMax = prev; // update max idx
+	// 	}
+	// 	prev = cur;
+	// 	cur = cur->next;
+	// }
+	// if (maxNode == *ptrHead) return 0; // when max is in front
+
+	// preMax->next = maxNode->next; // unlinking max
+
+	// maxNode->next = *ptrHead; // moving max to front
+	// *ptrHead = maxNode;
+	// return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

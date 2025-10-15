@@ -103,27 +103,76 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
-	ListNode *cur1;
-	ListNode *cur2;
-	if (ll1 == NULL || ll2 == NULL)
-		return;
 	
-	cur1 = ll1->head;
-	cur2 = ll2->head;
+	//ver3
+	if (ll1 == NULL || ll2 == NULL) return;
+	if (ll1->head == NULL || ll2->head == NULL) return;
 
-	if (cur1 == NULL || cur2 == NULL) { // list1 또는 list2가 비어있으면 그대로 끝
-		return;
-	}
-	int idx = 0; // 2번째 자리부터 넣어줘야 하기 때문에 ll1의 idx 시작점 = 1
+	ListNode *cur1 = ll1->head;
+	ListNode *cur2 = ll2->head;
+	ListNode *next1, *next2;
 
-	while (findNode(ll1,idx) && findNode(ll2,0)) // loop 종료 조건 : 매칭할 ll1 index가 없을때 또는 ll2가 빌 때
-	{
-		cur2 = ll2->head;
-		insertNode(ll1,idx+1,cur2->item);
-		removeNode(ll2,0);
-		idx+=2; // idx값 2개씩 이동
+	while (cur1 != NULL && cur2 != NULL) {
+		next1 = cur1->next;
+		next2 = cur2->next;
+		
+		cur1->next = cur2; // why not just use next1 or next2?
+		cur2->next = next1;
+
+		cur1 = next1;
+		cur2 = next2;
+
+		ll1->size++;
+		ll2->size--;
 	}
+	ll2->head = cur2;
+
+
+	//ver2
+	// if (ll1 == NULL || ll2 == NULL) return;
+
+	// ListNode *cur1 = ll1->head;
+	// ListNode *cur2 = ll2->head;
+
+	// if (cur1 == NULL || cur2 == NULL) return;
+
+	// int shorter = (ll1->size < ll2->size) ? ll1->size: ll2->size;
+	// int idx = 1;
+
+	// while (shorter != 0) {
+	// 	cur2 = ll2->head;
+	// 	insertNode(ll1,idx,cur2->item);
+	// 	removeNode(ll2,0);
+	// 	shorter--;
+	// 	idx+=2;
+	// }
+	
+
+
+    /* add your code here */
+
+	// 리스트 중 하나라도 없다면 return
+	// if (ll1 == NULL || ll2 == NULL)
+	// 	return;
+
+	// // 리스트별 시작점 포인터 설정
+	// ListNode *cur1 = ll1->head;
+	// ListNode *cur2 = ll2->head;
+
+	// // 둘 중 하나라도 비어있다면(head == NULL) 그대로 끝
+	// if (cur1 == NULL || cur2 == NULL) { 
+	// 	return;
+	// }
+
+	// int idx = 1; 
+	// // loop 종료 조건 : 매칭할 ll1 index가 없을때 또는 ll2가 빌 때
+	// while (findNode(ll1,idx) && findNode(ll2,0)) 
+	// {	
+	// 	cur2 = ll2->head; // cur2가 계속 ll2의 0번 자리를 가리킬 수 있도록 
+	// 	insertNode(ll1,idx+1,cur2->item);
+	// 	removeNode(ll2,0);
+	// 	idx+=2; // idx값 2개씩 이동
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -113,12 +113,54 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    if (ll == NULL || ll->head == NULL) return;
+	ListNode *cur = ll->head;
+	while (cur != NULL) {
+		push(s,cur->item);
+		cur = cur->next;
+	}
+
 }
 
 void removeEvenValues(Stack *s)
-{
-	/* add your code here */
+{	
+	if (s == NULL || isEmptyStack(s)) return;
+	int item = pop(s);
+	removeEvenValues(s);
+	if (item%2 != 0) push(s,item);
+	//ver3 - Recursion 단순 끝판왕.
+
+	// ver2 - utilizing temporary stack
+	// Stack temp = { .ll = { .head = NULL, .size = 0}}
+	// // Stack temp;
+	// // temp.ll.head = NULL;
+	// // temp.ll.size = 0;
+
+	// while (!isEmptyStack(s)) {
+	// 	int item = pop(s);
+	// 	if (item%2 != 0) 
+	// 		push(&temp,item);
+	// }
+	// while (!isEmptyStack(&temp)) { //make sure to use & to refer to temp stack
+	// 	push(s,pop(&temp));
+	// }
+
+
+	// ver 1
+	// int *odds = malloc(sizeof(int)*len);
+	// int count = 0;
+
+	// for (int i = 0; i < len; i++) {
+	// 	int item = pop(s);
+	// 	if (item%2 != 0) {
+	// 		odds[count++] = item;
+	// 	}
+	// }
+	// for (int j = count-1; j >= 0; j--) {
+	// 	push(s,odds[j]);
+	// }
+	// free(odds);
+	// /* add your code here */
 }
 
 //////////////////////////////////////////////////////////////////////////////////

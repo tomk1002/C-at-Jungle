@@ -84,11 +84,11 @@ int main()
                 break;
             case 3:
                 s = identical(root1, root2);
-                if(s){
-                printf("Both trees are structurally identical.\n");
+                if(!s){
+                printf("Both trees are different.\n");
                 }
                 else{
-                printf("Both trees are different.\n");
+                printf("Both trees are structurally identical.\n");
                 }
                 removeAll(&root1);
                 removeAll(&root2);
@@ -113,9 +113,27 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int identical(BTNode *tree1, BTNode *tree2)
+int identical(BTNode *tree1, BTNode *tree2) {
+    if (tree1 == NULL && tree2 == NULL) return 1;
+    if (tree1 == NULL || tree2 == NULL) return 0;
+    if (tree1->item != tree2->item) return 0;
+    return identical(tree1->left, tree2->left) && 
+           identical(tree1->right, tree2->right);
 
-{
+
+    // so i basically need to traverse each tree simultaneously and compare each node's item value
+
+    // if (tree1 == NULL && tree2 == NULL) return 1;
+
+    // if (tree1 == NULL || tree2 == NULL) return 0;
+
+    // if (tree1->item != tree2->item) return 0;
+
+    // return identical(tree1->left, tree2->left) && 
+    //        identical(tree1->right,tree2->right);
+
+
+
    /* add your code here */
 }
 

@@ -100,8 +100,32 @@ int main()
 
 int countOneChildNodes(BTNode *node)
 
-{
-    /* add your code here */
+{ 
+
+
+    if (node == NULL ) return 0;
+    int leftCount = countOneChildNodes(node->left);
+    int rightCount = countOneChildNodes(node->right);
+    if (node->left == NULL ^ node->right == NULL)
+        return leftCount + rightCount + 1;
+    else 
+        return leftCount + rightCount;
+
+
+    // ^ is bitwise XOR - it may work on boolean expression cases but should be carefully used
+    // if (node == NULL) return 0;
+    // if (node->left == NULL ^ node->right == NULL)
+    //     return countOneChildNodes(node->left) + countOneChildNodes(node->right) + 1;
+    // else return countOneChildNodes(node->left) + countOneChildNodes(node->right);
+    /*
+    int leftCount = countOneChildNodes(node->left);
+    int rightCount = countOneChildNodes(node->right);
+
+    if ((node->left == NULL) ^ (node->right == NULL))
+        return leftCount + rightCount + 1;
+    else
+        return leftCount + rightCount;
+    */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

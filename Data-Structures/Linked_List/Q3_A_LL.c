@@ -86,29 +86,49 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	// ver2 bymyself!
+	if (ll == NULL || ll->head == NULL) {
+		printf("Empty List");
+		return;
+	}
 	ListNode *cur = ll->head;
-
-	if (ll == NULL) return;
-	if (cur == NULL) printf("Empty");
-
-	int odds[100]; // list for odds
-	int count = 0;
 	int idx = 0;
+	int originalSize = ll->size;
 
-	while (cur != NULL) {
-		ListNode *next = cur->next;        // save next before removal
-		if (cur->item % 2 != 0) {
-			odds[count++] = cur->item;		// count++ does 2 things at once.
-			removeNode(ll, idx);           // removes current node safely
-		} else {
-			idx++;                         // only increment index if not removed
-		}
-		cur = next;                        // move safely to next
+	while (originalSize != 0) {
+		ListNode *next = cur->next; // save next before remove
+		int isodd = cur->item; // save before removing to insert after remove.
+		if (cur->item%2 != 0) {
+			removeNode(ll,idx);
+			insertNode(ll,ll->size,isodd);
+		} else idx++; // only move idx if not removed since if removed idx will roll back
+		cur = next;
+		originalSize--;
 	}
-	for (int i = 0; i < count; i++) {
-    	insertNode(ll, ll->size, odds[i]);
-	}
+	
+	/* add your code here */
+	// ListNode *cur = ll->head;
+
+	// if (ll == NULL) return;
+	// if (cur == NULL) printf("Empty");
+
+	// int odds[100]; // list for odds
+	// int count = 0;
+	// int idx = 0;
+
+	// while (cur != NULL) {
+	// 	ListNode *next = cur->next;        // save next before removal
+	// 	if (cur->item % 2 != 0) {
+	// 		odds[count++] = cur->item;		// count++ does 2 things at once.
+	// 		removeNode(ll, idx);           // removes current node safely
+	// 	} else {
+	// 		idx++;                         // only increment index if not removed
+	// 	}
+	// 	cur = next;                        // move safely to next
+	// }
+	// for (int i = 0; i < count; i++) {
+    // 	insertNode(ll, ll->size, odds[i]);
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

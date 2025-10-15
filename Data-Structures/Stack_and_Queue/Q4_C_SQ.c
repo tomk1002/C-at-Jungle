@@ -112,6 +112,36 @@ int main()
 
 void reverse(Queue *q)
 {
+	// if (q == NULL || isEmptyQueue(q)) return;
+	// int item = dequeue(q);
+	// reverse(q);
+	// enqueue(q,item);
+
+	// ver2 - using stack
+	// the while loop here is safer than using size
+	// reducing dependency to potentially variable values is key
+	if (q == NULL || isEmptyQueue(q)) return;
+	Stack s = { .ll = { .head = NULL, .size = 0}};
+
+	while (!isEmptyQueue(q)) {
+		push(&s, dequeue(q));
+	}
+	while (!isEmptyStack(&s)) {
+		enqueue(q,pop(&s));
+	}
+
+
+
+	if (q == NULL || isEmptyQueue(q)) return;
+
+	Stack temp = { .ll = { .head = NULL, .size = 0}};
+
+	int size = (q->ll).size;
+	for (int i = 0; i < size; i++) 
+		push(&temp,dequeue(q));
+	for (int i = 0; i < size; i++)
+		enqueue(q,pop(&temp));
+
 /* add your code here */
 }
 

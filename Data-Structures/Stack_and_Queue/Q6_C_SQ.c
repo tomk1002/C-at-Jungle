@@ -110,8 +110,26 @@ int main()
 ////////////////////////////////////////////////////////////
 
 void removeUntil(Stack *s, int value)
-{
+{	
+	// lower version is wrong - it even pops the value
+	if (s == NULL || isEmptyStack(s)) return;
+
+	while(!isEmptyStack(s)) {
+		int top = peek(s);
+		if (top == value) break;
+		pop(s);
+	}
+
+
+
+	// if (s == NULL || isEmptyStack(s)) return;
+	// int item = peek(s);
+	// while (item != value) {
+	// 	if (isEmptyStack(s)) return;
+	// 	item = pop(s);
+	// }
 /* add your code here */
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

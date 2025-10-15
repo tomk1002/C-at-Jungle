@@ -95,15 +95,61 @@ int main()
 			break;
 		}
 	}
-
     return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
 int isStackPairwiseConsecutive(Stack *s)
-{
-  /* add your code here */
+{	
+	// ver2- using not using stack, traversing ll.
+	// if (s == NULL | isEmptyStack(s)) return 0;
+
+	// if ((s->ll).size %2 != 0) return 0;
+
+	// ListNode *cur = s->ll.head;
+
+	// while (cur && cur->next) {
+	// 	int val1 = cur->item;
+	// 	int val2 = cur->next->item;
+		
+	// 	if (abs(val1-val2) != 1) 
+	// 		return 0;
+
+	// 	cur = cur->next->next;
+	// }
+	// return 1;
+		
+	// }
+	
+
+	/* add your code here */
+	if (s == NULL || isEmptyStack(s)) return 0;
+
+	if (((s->ll).size)%2 != 0) {	
+		return 0; 
+	}
+	
+	Stack temp = { .ll = { .head = NULL, .size = 0}};
+	int isConsecutive = 1;
+
+	while (!isEmptyStack(s)) {
+		int pair1 = pop(s);
+		int pair2 = pop(s);
+
+		if (abs(pair1-pair2) != 1)
+			isConsecutive = 0;
+
+		push(&temp,pair1);
+		push(&temp,pair2);
+	}
+	while (!isEmptyStack(&temp)) {
+		push(s,pop(&temp));
+	}
+	printf("The stack is : ");
+	printList(&(s->ll));
+	return isConsecutive;
+  
 }
 
 //////////////////////////////////////////////////////////////////////////////////
